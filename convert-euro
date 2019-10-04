@@ -1,0 +1,29 @@
+(define (convert-euro list-of-dollar)
+  (cond
+    [(empty? list-of-dollar) empty]
+    [else  (cons(currency-rate(first list-of-dollar))
+           (convert-euro(rest list-of-dollar)))]
+    ))
+
+(define (currency-rate dollar)
+  (* dollar 1.22))
+
+(check-expect (convert-euro(cons 100 (cons 100 (cons 100 empty))))
+              (cons 122 (cons 122 (cons 122 empty)))
+              )
+;;-------------------------------------------------
+(define (convert-euro-1 rate list-of-dollar)
+  (cond
+    [(empty? list-of-dollar) empty]
+    [else  (cons(currency-rate-cos(first list-of-dollar) rate)
+           (convert-euro-1 rate(rest list-of-dollar)))]
+    ))
+
+(define (currency-rate-cos dollar rate)
+  (* dollar rate))
+
+
+
+(check-expect (convert-euro-1 999(cons 100 (cons 100 (cons 100 empty))))
+              (cons 99900 (cons 99900 (cons 99900 empty)))
+              )
